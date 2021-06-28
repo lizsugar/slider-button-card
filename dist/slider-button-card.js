@@ -7686,6 +7686,7 @@ SliderButtonCardEditor = __decorate([
     customElement('slider-button-card-editor')
 ], SliderButtonCardEditor);
 
+var SliderButtonCard_1;
 /* eslint no-console: 0 */
 console.info(`%c  SLIDER-BUTTON-CARD %c ${localize('common.version')}${CARD_VERSION} %c`, 'background-color: #555;color: #fff;padding: 3px 2px 3px 3px;border: 1px solid #555;border-radius: 3px 0 0 3px;font-family: Roboto,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)', 'background-color: transparent;color: #555;padding: 3px 3px 3px 2px;border: 1px solid #555; border-radius: 0 3px 3px 0;font-family: Roboto,Verdana,Geneva,sans-serif', 'background-color: transparent');
 // This puts your card into the UI card picker dialog
@@ -7696,11 +7697,38 @@ window.customCards.push({
     description: 'A button card with slider',
     preview: true,
 });
-let SliderButtonCard = class SliderButtonCard extends LitElement {
+let SliderButtonCard = SliderButtonCard_1 = class SliderButtonCard extends LitElement {
     constructor() {
         super(...arguments);
         this.changing = false;
         this.changed = false;
+        this.hasTemplate = false;
+    }
+    evaluateJsTemplates() {
+        if (!this._renderedConfig || !this.config || !this.ctrl.stateObj) {
+            return;
+        }
+        for (const field of SliderButtonCard_1.templateFields) {
+            const regMatches = SliderButtonCard_1.templateRegex.exec(this.config[field]);
+            SliderButtonCard_1.templateRegex.lastIndex = 0;
+            if (regMatches && regMatches.length > 1) {
+                this._renderedConfig[field] = this._evalTemplate(this.ctrl.stateObj, regMatches[1]);
+            }
+            else {
+                this._renderedConfig[field] = this.config[field];
+            }
+        }
+    }
+    /**
+     * Renders a Javascript template
+     * Credit: https://github.com/custom-cards/button-card
+     */
+    _evalTemplate(state, func) {
+        if (!this.hass) {
+            return '';
+        }
+        /* eslint no-new-func: 0 */
+        return new Function('states', 'entity', 'user', 'hass', 'variables', `'use strict'; ${func}`).call(this, this.hass.states, state, this.hass.user, this.hass, []);
     }
     static async getConfigElement() {
         return document.createElement('slider-button-card-editor');
@@ -7738,6 +7766,16 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
             // eslint-disable-next-line @typescript-eslint/camelcase
             action_button: copy(ActionButtonConfigDefault), debug: false }, config);
         this.ctrl = ControllerFactory.getInstance(this.config);
+        this._renderedConfig = copy(this.config);
+        // Check if there is a template in a field
+        for (const field of SliderButtonCard_1.templateFields) {
+            const regResult = SliderButtonCard_1.templateRegex.exec(this.config[field]);
+            SliderButtonCard_1.templateRegex.lastIndex = 0;
+            if (regResult !== null) {
+                this.hasTemplate = true;
+                break;
+            }
+        }
     }
     shouldUpdate(changedProps) {
         if (!this.config) {
@@ -7750,7 +7788,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
             this.ctrl.log('shouldUpdate', 'forced true');
             return true;
         }
-        return K(this, changedProps, false);
+        return K(this, changedProps, this.hasTemplate);
     }
     updated(changedProps) {
         this.updateValue(this.ctrl.value, false);
@@ -7773,6 +7811,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         if (!this.ctrl.stateObj) {
             return this._showError(localize('common.show_error'));
         }
+        this.evaluateJsTemplates();
         return html `
       <ha-card
         tabindex="0"
@@ -7816,14 +7855,16 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
     `;
     }
     renderText() {
+        var _a, _b;
         if (!this.config.show_name && !this.config.show_state && !this.config.show_attribute) {
             return html ``;
         }
+        console.log('ren', this._renderedConfig);
         return html `
           <div class="text">
             ${this.config.show_name
             ? html `
-                <div class="name">${this.ctrl.name}</div>
+                <div class="name">${((_a = this._renderedConfig) === null || _a === void 0 ? void 0 : _a.name) ? (_b = this._renderedConfig) === null || _b === void 0 ? void 0 : _b.name : this.ctrl.name}</div>
                 `
             : ''}
 
@@ -8574,6 +8615,10 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
     `;
     }
 };
+SliderButtonCard.templateRegex = new RegExp('\\[\\[\\[([^]*)\\]\\]\\]', 'gm');
+SliderButtonCard.templateFields = [
+    'name',
+];
 __decorate([
     property({ attribute: false })
 ], SliderButtonCard.prototype, "hass", void 0);
@@ -8592,7 +8637,7 @@ __decorate([
 __decorate([
     query('.slider')
 ], SliderButtonCard.prototype, "slider", void 0);
-SliderButtonCard = __decorate([
+SliderButtonCard = SliderButtonCard_1 = __decorate([
     customElement('slider-button-card')
 ], SliderButtonCard);
 

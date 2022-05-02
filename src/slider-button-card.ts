@@ -91,7 +91,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       compact: false,
       // eslint-disable-next-line @typescript-eslint/camelcase
       action_button: copy(ActionButtonConfigDefault),
-      debug: false,
+      debug: true,
       ...config
     };
     this.ctrl = ControllerFactory.getInstance(this.config);
@@ -159,9 +159,21 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
                data-mode="${this.config.slider?.direction}"
                data-background="${this.config.slider?.background}"
                data-disable-sliding="${this.ctrl.disableSliding}"
+
+               @onclick=${ (e): void => this._handleAction(e, this.config.slider)}
+                .actionHandler=${actionHandler({
+                  hasHold: false,
+                  hasDoubleClick: false,
+                })}
+
+
+
+
                @pointerdown=${this.onPointerDown}
                @pointermove=${this.onPointerMove}
                @pointerup=${this.onPointerUp}
+
+
           >
 
                 <div class="toggle-overlay" @action=${ (e): void => this._handleAction(e, this.config.slider)}
@@ -281,12 +293,16 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
   }
 
   private _handleAction(ev: ActionHandlerEvent, config): void {
-    if (this.hass && this.config && ev.detail.action) {
-      if (config.tap_action?.action === 'toggle' && !this.ctrl.isUnavailable) {
-        this.animateActionStart();
+    //if (ev.detail.action === 'tap') {
+      if (this.hass && this.config && ev.detail.action) {
+        if (config.tap_action?.action === 'toggle' && !this.ctrl.isUnavailable) {
+          this.animateActionStart();
+        }
+        handleAction(this, this.hass, {...config, entity: this.config.entity}, ev.detail.action);
+        this.ctrl.log('handleAction! inside if', ev.detail.action);
       }
-      handleAction(this, this.hass, {...config, entity: this.config.entity}, ev.detail.action);
-    }
+      this.ctrl.log('handleAction! outside if', ev.detail.action);
+    //}
   }
 
   private async handleClick(ev: Event): Promise<void> {

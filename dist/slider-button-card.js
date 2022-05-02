@@ -7407,7 +7407,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
             // eslint-disable-next-line @typescript-eslint/camelcase
             show_state: true, compact: false, 
             // eslint-disable-next-line @typescript-eslint/camelcase
-            action_button: copy(ActionButtonConfigDefault), debug: false }, config);
+            action_button: copy(ActionButtonConfigDefault), debug: true }, config);
         this.ctrl = ControllerFactory.getInstance(this.config);
     }
     shouldUpdate(changedProps) {
@@ -7464,9 +7464,21 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
                data-mode="${(_d = this.config.slider) === null || _d === void 0 ? void 0 : _d.direction}"
                data-background="${(_e = this.config.slider) === null || _e === void 0 ? void 0 : _e.background}"
                data-disable-sliding="${this.ctrl.disableSliding}"
+
+               @onclick=${(e) => this._handleAction(e, this.config.slider)}
+                .actionHandler=${actionHandler({
+            hasHold: false,
+            hasDoubleClick: false,
+        })}
+
+
+
+
                @pointerdown=${this.onPointerDown}
                @pointermove=${this.onPointerMove}
                @pointerup=${this.onPointerUp}
+
+
           >
 
                 <div class="toggle-overlay" @action=${(e) => this._handleAction(e, this.config.slider)}
@@ -7583,12 +7595,16 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
     }
     _handleAction(ev, config) {
         var _a;
+        //if (ev.detail.action === 'tap') {
         if (this.hass && this.config && ev.detail.action) {
             if (((_a = config.tap_action) === null || _a === void 0 ? void 0 : _a.action) === 'toggle' && !this.ctrl.isUnavailable) {
                 this.animateActionStart();
             }
             G(this, this.hass, Object.assign(Object.assign({}, config), { entity: this.config.entity }), ev.detail.action);
+            this.ctrl.log('handleAction! inside if', ev.detail.action);
         }
+        this.ctrl.log('handleAction! outside if', ev.detail.action);
+        //}
     }
     async handleClick(ev) {
         //if (this.ctrl.hasToggle && !this.ctrl.isUnavailable) {

@@ -160,11 +160,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
                data-background="${this.config.slider?.background}"
                data-disable-sliding="${this.ctrl.disableSliding}"
 
-               @onclick=${ (e): void => this._handleAction(e, this.config.slider)}
-                .actionHandler=${actionHandler({
-                  hasHold: false,
-                  hasDoubleClick: false,
-                })}
+
 
 
 
@@ -176,12 +172,13 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
 
           >
 
-                <div class="toggle-overlay" @action=${ (e): void => this._handleAction(e, this.config.slider)}
-           .actionHandler=${actionHandler({
-             hasHold: false,
-             hasDoubleClick: false,
-           })}
-           ></div>
+          <div class="toggle-overlay" 
+              @action=${ (e): void => this._handleAction(e, this.config.slider)}
+                .actionHandler=${actionHandler({
+                  hasHold: false,
+                  hasDoubleClick: false,
+                })}
+          ></div>
 
             <div class="slider-bg"></div>
             <div class="slider-thumb"></div>           

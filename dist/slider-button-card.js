@@ -7465,11 +7465,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
                data-background="${(_e = this.config.slider) === null || _e === void 0 ? void 0 : _e.background}"
                data-disable-sliding="${this.ctrl.disableSliding}"
 
-               @onclick=${(e) => this._handleAction(e, this.config.slider)}
-                .actionHandler=${actionHandler({
-            hasHold: false,
-            hasDoubleClick: false,
-        })}
+
 
 
 
@@ -7481,12 +7477,13 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
 
           >
 
-                <div class="toggle-overlay" @action=${(e) => this._handleAction(e, this.config.slider)}
-           .actionHandler=${actionHandler({
+          <div class="toggle-overlay" 
+              @action=${(e) => this._handleAction(e, this.config.slider)}
+                .actionHandler=${actionHandler({
             hasHold: false,
             hasDoubleClick: false,
         })}
-           ></div>
+          ></div>
 
             <div class="slider-bg"></div>
             <div class="slider-thumb"></div>           

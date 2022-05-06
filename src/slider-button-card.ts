@@ -470,7 +470,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      touch-action: none;
+      touch-action: pan-y !important;
       overflow: hidden;      
       --mdc-icon-size: 2.2em;
     }
@@ -516,7 +516,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       display: block;
       overflow: hidden;           
       transition: all 0.2s ease-in-out;
-      touch-action: none;
+      touch-action: pan-y !important;
     }
     ha-card.compact .button {
       min-height: 3rem !important;

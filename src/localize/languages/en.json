@@ -31,6 +31,8 @@
       "show_track": "Show track?",
       "disable_sliding": "Disable Sliding",
       "force_square": "Force square?",
+      "min": "Minimum value",
+      "max": "Maximum value",
       "tap_action": "Tap Action"
     },
     "action_button": {

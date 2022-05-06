@@ -86,6 +86,14 @@ export class SliderButtonCardEditor extends LitElement implements LovelaceCardEd
     return this._config?.slider || SliderConfigDefault;
   }
 
+  get _min(): number {
+    return this._config?._slider?._min;
+  }
+
+  get _max(): number {
+    return this._config?._slider?._max;
+  }
+
   get _action_button(): ActionButtonConfig {
     return this._config?.action_button || ActionButtonConfigDefault;
   }
@@ -234,6 +242,22 @@ export class SliderButtonCardEditor extends LitElement implements LovelaceCardEd
                 </paper-dropdown-menu>
 
               </div>
+              <div class="side-by-side">
+                <paper-input
+                  label="${localize('tabs.slider.min')}"
+                  .value=${this._min}
+                  .placeholder=""
+                  .configValue=${'slider.min'}
+                  @value-changed=${this._valueChanged}
+                ></paper-input>
+                <paper-input
+                  label="${localize('tabs.slider.max')}"
+                  .value=${this._max}
+                  .placeholder=""
+                  .configValue=${'slider.max'}
+                  @value-changed=${this._valueChanged}
+                ></paper-input>
+              </div
               <div class="side-by-side">
                 ${this.renderBrightness('slider')}
                 ${this.renderStateColor('slider')}

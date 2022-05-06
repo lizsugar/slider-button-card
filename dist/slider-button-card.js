@@ -6411,6 +6411,8 @@ var tabs$8 = {
 		show_track: "Show track?",
 		disable_sliding: "Disable Sliding",
 		force_square: "Force square?",
+		min: "Minimum value",
+		max: "Maximum value",
 		tap_action: "Tap Action"
 	},
 	action_button: {
@@ -7195,6 +7197,14 @@ let SliderButtonCardEditor = class SliderButtonCardEditor extends LitElement {
         var _a;
         return ((_a = this._config) === null || _a === void 0 ? void 0 : _a.slider) || SliderConfigDefault;
     }
+    get _min() {
+        var _a, _b;
+        return (_b = (_a = this._config) === null || _a === void 0 ? void 0 : _a._slider) === null || _b === void 0 ? void 0 : _b._min;
+    }
+    get _max() {
+        var _a, _b;
+        return (_b = (_a = this._config) === null || _a === void 0 ? void 0 : _a._slider) === null || _b === void 0 ? void 0 : _b._max;
+    }
     get _action_button() {
         var _a;
         return ((_a = this._config) === null || _a === void 0 ? void 0 : _a.action_button) || ActionButtonConfigDefault;
@@ -7343,6 +7353,22 @@ let SliderButtonCardEditor = class SliderButtonCardEditor extends LitElement {
                 </paper-dropdown-menu>
 
               </div>
+              <div class="side-by-side">
+                <paper-input
+                  label="${localize('tabs.slider.min')}"
+                  .value=${this._min}
+                  .placeholder=""
+                  .configValue=${'slider.min'}
+                  @value-changed=${this._valueChanged}
+                ></paper-input>
+                <paper-input
+                  label="${localize('tabs.slider.max')}"
+                  .value=${this._max}
+                  .placeholder=""
+                  .configValue=${'slider.max'}
+                  @value-changed=${this._valueChanged}
+                ></paper-input>
+              </div
               <div class="side-by-side">
                 ${this.renderBrightness('slider')}
                 ${this.renderStateColor('slider')}

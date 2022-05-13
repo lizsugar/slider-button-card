@@ -464,9 +464,9 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     return css`
     ha-card {
       box-sizing: border-box;
-      height: 100%;
+      height: 90%;
       width: 100%;
-      min-height: 7rem;
+      min-height: 6rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -511,7 +511,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       padding: 0.8rem;
       box-sizing: border-box;
       height: 100%;
-      min-height: 7rem;
+      min-height: 6rem;
       width: 100%;
       display: block;
       overflow: hidden;           
@@ -561,7 +561,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     
     .text {
       position: absolute;
-      bottom: 0;
+      bottom: -5px;
       left: 0;
       padding: 0.8rem;
       pointer-events: none;

@@ -464,9 +464,9 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     return css`
     ha-card {
       box-sizing: border-box;
-      height: 90%;
+      height: 100%;
       width: 100%;
-      min-height: 6rem;
+      min-height: 6.25rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -511,7 +511,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       padding: 0.8rem;
       box-sizing: border-box;
       height: 100%;
-      min-height: 6rem;
+      min-height: 6.25rem;
       width: 100%;
       display: block;
       overflow: hidden;           
@@ -528,7 +528,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     /* --- ICON --- */
     
     .icon {
-      position: relative;
+      position: absolute;
       cursor: pointer;
       width: var(--mdc-icon-size, 24px);
       height: var(--mdc-icon-size, 24px);
@@ -537,6 +537,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       outline: none;
       animation: var(--icon-rotate-speed, 0s) linear 0s infinite normal both running rotate;
       -webkit-tap-highlight-color: transparent;
+      bottom: 26px;
     }
     .icon ha-icon {
       filter: var(--icon-filter, brightness(100%));
@@ -561,8 +562,8 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     
     .text {
       position: absolute;
-      bottom: -5px;
-      left: 0;
+      bottom: 12px;
+      left: 36px;
       padding: 0.8rem;
       pointer-events: none;
       user-select: none;
@@ -812,7 +813,9 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     /* --- ACTION BUTTON --- */      
               
     .action {
-      position: relative;
+      position: absolute;
+      right: 10px;
+      bottom: 28px;
       float: right;
       width: var(--mdc-icon-size, 24px);
       height: var(--mdc-icon-size, 24px);

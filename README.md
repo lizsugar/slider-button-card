@@ -6,14 +6,18 @@ A button card with integrated slider for `light, switch, fan, cover, input_boole
 
 Fork maintained by [@lizsugar](https://www.github.com/lizsugar) and has the following modifications:
 
-- Automation entities supported
+- `Automation, binary_sensor, sensor, climate, input_number, script, scene` entities supported
 - Slider moves based on relative position, not absolute
+- Support for tap action on a card while slider is active
 - Option to show attribute
+- Visual changes to look more like Google Home's control cards
 
 Also includes fan speed modifications from [@rohankapoorcom](https://github.com/rohankapoorcom).
 
 ## TODO:
 - [ ] Add a tap action on the card independent of slider enabled/disabled
+  - [ ] resolve issue where mouse click does not work (yet touch tap works)
+- [ ] Update documentation for new config options
 
 ![Preview][preview]
 ![Preview 2][preview-2]

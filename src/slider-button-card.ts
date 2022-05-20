@@ -843,6 +843,13 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     .unavailable .action {
       color: var(--disabled-text-color);
     }
+
+    .compact .action {
+      position: relative;
+      float: right;
+      bottom: 0px;
+      right: 0px;
+    }
     
 
     .circular-loader {

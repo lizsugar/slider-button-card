@@ -8414,6 +8414,13 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
     .unavailable .action {
       color: var(--disabled-text-color);
     }
+
+    .compact .action {
+      position: relative;
+      float: right;
+      bottom: 0px;
+      right: 0px;
+    }
     
 
     .circular-loader {

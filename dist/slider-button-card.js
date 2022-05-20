@@ -8126,7 +8126,9 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
       color: var(--disabled-text-color);
     }
     .compact .icon {
+      position: relative;
       float: left;
+      bottom: 0px;
     }
 
     /* --- TEXT --- */
@@ -8217,6 +8219,12 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
       transition: font-size 0.1s ease-in-out;
       border: 1px solid red; 
       */
+    }
+
+    .compact .attribute {
+      display: inline-block;
+      max-width: calc(100% - 0em);
+      overflow: hidden;
     }
 
     .oneliner {      

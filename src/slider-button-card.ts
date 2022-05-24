@@ -159,17 +159,9 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
                data-mode="${this.config.slider?.direction}"
                data-background="${this.config.slider?.background}"
                data-disable-sliding="${this.ctrl.disableSliding}"
-
-
-
-
-
-
                @pointerdown=${this.onPointerDown}
                @pointermove=${this.onPointerMove}
                @pointerup=${this.onPointerUp}
-
-
           >
 
           <div class="toggle-overlay" 
@@ -290,7 +282,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
   }
 
   private _handleAction(ev: ActionHandlerEvent, config): void {
-    //if (ev.detail.action === 'tap') {
+      this.ctrl.log('STARTING _handleAction', ev.detail.action);
       if (this.hass && this.config && ev.detail.action) {
         if (config.tap_action?.action === 'toggle' && !this.ctrl.isUnavailable) {
           this.animateActionStart();
@@ -299,7 +291,6 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
         this.ctrl.log('handleAction! inside if', ev.detail.action);
       }
       this.ctrl.log('handleAction! outside if', ev.detail.action);
-    //}
   }
 
   private async handleClick(ev: Event): Promise<void> {
@@ -345,7 +336,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
   private updateValue(value: number, changing = true): void {
     this.changing = changing;
     this.changed = !changing;
-    this.ctrl.log('updateValue', value);
+    //this.ctrl.log('updateValue', value);
     this.ctrl.targetValue = value;
     if (!this.button) {
       return
@@ -395,20 +386,26 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
   }
 
   private onPointerDown(event: PointerEvent): void {
+    this.ctrl.log('onPointerDown - 1', event.type);
     event.preventDefault();
     event.stopPropagation();
     if (this.ctrl.isSliderDisabled) {
+      this.ctrl.log('onPointerDown - breaking', event.type);
       return;
     }
+    this.ctrl.log('onPointerDown - 2', event.type);
     this.slider.setPointerCapture(event.pointerId);
+    this.ctrl.log('onPointerDown - 3', event.type);
   }
 
   private onPointerUp(event: PointerEvent): void {
+    this.ctrl.log('onPointerUP - A', event.type);
     if (this.ctrl.isSliderDisabled) {
       return;
     }
     this.setStateValue(this.ctrl.targetValue);
     this.slider.releasePointerCapture(event.pointerId);
+    this.ctrl.log('onPointerUP - B', event.type);
   }
 
   private onPointerMove(event: any): void {
@@ -418,7 +415,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     if (!this.slider.hasPointerCapture(event.pointerId)) return;
     const {left, top, width, height} = this.slider.getBoundingClientRect();
     const percentage = this.ctrl.moveSlider(event, {left, top, width, height});
-    this.ctrl.log('onPointerMove', percentage);
+    //this.ctrl.log('onPointerMove', percentage);
     this.updateValue(percentage);
   }
 

@@ -100,6 +100,7 @@ class ActionHandler extends HTMLElement implements ActionHandler {
     };
 
     const end = (ev: Event): void => {
+      //console.log("END START");
       // Prevent mouse event if touch event
       ev.preventDefault();
       if (['touchend', 'touchcancel'].includes(ev.type) && this.timer === undefined) {
@@ -110,18 +111,21 @@ class ActionHandler extends HTMLElement implements ActionHandler {
       this.timer = undefined;
       if (this.held) {
         fireEvent(element, 'action', { action: 'hold' });
-      } else if (options.hasDoubleClick) {
+      } 
+      else if (options.hasDoubleClick) {
         if ((ev.type === 'click' && (ev as MouseEvent).detail < 2) || !this.dblClickTimeout) {
           this.dblClickTimeout = window.setTimeout(() => {
             this.dblClickTimeout = undefined;
             fireEvent(element, 'action', { action: 'tap' });
           }, 250);
-        } else {
+        } 
+        else {
           clearTimeout(this.dblClickTimeout);
           this.dblClickTimeout = undefined;
           fireEvent(element, 'action', { action: 'double_tap' });
         }
-      } else {
+      } 
+      else {
         fireEvent(element, 'action', { action: 'tap' });
       }
     };
@@ -138,6 +142,8 @@ class ActionHandler extends HTMLElement implements ActionHandler {
     element.addEventListener('touchcancel', end);
 
     element.addEventListener('mousedown', start, { passive: true });
+    // why does this one work at all times but click does not...?
+    //element.addEventListener('mouseout', end);
     element.addEventListener('click', end);
 
     element.addEventListener('keyup', handleEnter);

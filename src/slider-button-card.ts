@@ -870,6 +870,13 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       bottom: 0px;
       right: 0px;
     }
+    .compact .action ha-switch {
+      position:  relative;
+      float:  right;
+      bottom:  0px;
+      right:  0px;
+      top:  8px;
+    }
     
 
     .circular-loader {

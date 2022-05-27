@@ -12,9 +12,9 @@
   ],
   "module": "slider-button-card.js",
   "repository": {
-    "url": "https://github.com/mattieha/slider-button-card"
+    "url": "https://github.com/lizsugar/slider-button-card"
   },
-  "author": "M Hoog Antink",
+  "author": "Liz Sugar",
   "license": "MIT",
   "dependencies": {
     "@ctrl/tinycolor": "^3.4.0",

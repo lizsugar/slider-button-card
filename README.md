@@ -239,8 +239,7 @@ compact: true
 </td>
 </tr>
 <tr>
-<td><em><td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/general-attribute.png">  
-</em> 
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/general-attribute.png"> 
 </td>
 <td valign="top">
 

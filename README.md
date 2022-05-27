@@ -1,23 +1,17 @@
-# Slider button card by [@mattieha](https://www.github.com/mattieha)
+# Slider button scard by [@mattieha](https://www.github.com/mattieha)
+## Forked and maintained by [@lizsugar](https://www.github.com/lizsugar)
 [![GitHub Release][releases-shield]][releases]
 [![hacs_badge](https://img.shields.io/badge/HACS-default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
 
 A button card with integrated slider for `light, switch, fan, cover, input_boolean, media_player, climate, lock` entities.
 
-Fork maintained by [@lizsugar](https://www.github.com/lizsugar) and has the following modifications:
-
+Additions on top of main card:
 - `Automation, binary_sensor, sensor, climate, input_number, script, scene` entities supported
-- Slider moves based on relative position, not absolute
-- Support for tap action on a card while slider is active
-- Option to show attribute
+- Slider moves based on relative position of mouse or finger, not absolute
+- Support for tap action on a card independent of slider enabled or disabled
+- Option to show entity attribute
 - Visual changes to look more like Google Home's control cards
-
-Also includes fan speed modifications from [@rohankapoorcom](https://github.com/rohankapoorcom).
-
-## TODO:
-- [ ] Add a tap action on the card independent of slider enabled/disabled
-  - [ ] resolve issue where mouse click does not work (yet touch tap works)
-- [ ] Update documentation for new config options
+- Display fan speeds correctly - from [@rohankapoorcom](https://github.com/rohankapoorcom).
 
 ![Preview][preview]
 ![Preview 2][preview-2]
@@ -59,12 +53,20 @@ Also includes fan speed modifications from [@rohankapoorcom](https://github.com/
 ## Installation
 
 ### HACS
-This card is available in [HACS][hacs] (Home Assistant Community Store).
+The original card is available in [HACS][hacs] (Home Assistant Community Store).
 Just search for `Slider Button Card` in Frontend tab.
+
+**This** fork of it is not.  Follow these steps to manually add it to HACS:
+
+1. Open HACS in your Home Assistant
+2. Click on _Frontend_ → _three-dot menu in top right_ → _Custom Repositories_
+3. Add the URL of this repository to the _Repository_ field and select "Lovelace" from the _Category_ dropdown.
+4. Press _Add_
+
 
 ### Manual
 
-1. Download `slider-button-card.js` file from the [latest-release].
+1. Download `slider-button-card.js` file from [main branch](https://github.com/lizsugar/slider-button-card/blob/main/dist/slider-button-card.js).
 2. Put `slider-button-card.js` file into your `config/www` folder.
 3. Go to _Configuration_ → _Lovelace Dashboards_ → _Resources_ → Click Plus button → Set _Url_ as `/local/slider-button-card.js` → Set _Resource type_ as `JavaScript Module`.
 4. Add `custom:slider-button-card` to Lovelace UI as any other card (using either editor or YAML configuration).
@@ -83,40 +85,44 @@ Slider Button Card supports Lovelace's Visual Editor.
 
 ### Options
 
-| Name              | Type    | Requirement  | Description                                 | Default             |
-| ----------------- | ------- | ------------ | ------------------------------------------- | ------------------- |
-| type              | string  | **Required** | `custom:slider-button-card`                   |
-| entity            | string  | **Required** | HA entity ID from domain `light, switch, fan, cover, input_boolean, media_player, climate, lock`                   |               |
-| name              | string  | **Optional** | Name                                   | `entity.friendly_name`       |
-| show_name        | boolean | **Optional** | Show name  | `true`             |
-| show_state        | boolean | **Optional** | Show state  | `true`             |
-| compact        | boolean | **Optional** | Compact mode, display name and state inline with icon. Useful for full width cards.   | `false`             |
-| icon        | object  | **Optional** |  [Icon options](#icon-options)                      |  |
-| slider        | object  | **Optional** | [Slider options](#slider-options)                      |  |
-| action_button        | object  | **Optional** | [Action button options](#action-button-options)                     |  |
+| Name           | Type    | Requirement  | Description                                                                                      | Default                |
+| -------------- | ------- | ------------ | ------------------------------------------------------------------------------------------------ | ---------------------- |
+| type           | string  | **Required** | `custom:slider-button-card`                                                                      |                        |
+| entity         | string  | **Required** | HA entity ID from domain `light, switch, fan, cover, input_boolean, media_player, climate, lock` |                        |
+| attribute      | string  | **Optional** | Entity attribute to display                                                                      |                        |
+| name           | string  | **Optional** | Name                                                                                             | `entity.friendly_name` |
+| show_name      | boolean | **Optional** | Show name                                                                                        | `true`                 |
+| show_state     | boolean | **Optional** | Show state                                                                                       | `true`                 |
+| show_attribute | boolean | **Optional** | Show attribute                                                                                   | `false`                |
+| compact        | boolean | **Optional** | Compact mode, display name and state inline with icon. Useful for full width cards.              | `false`                |
+| icon           | object  | **Optional** | [Icon options](#icon-options)                                                                    |                        |
+| slider         | object  | **Optional** | [Slider options](#slider-options)                                                                |                        |
+| action_button  | object  | **Optional** | [Action button options](#action-button-options)                                                  |                        |
 
 ### Icon Options
 
-| Name              | Type    | Requirement  | Description                                 | Default             |
-| ----------------- | ------- | ------------ | ------------------------------------------- | ------------------- |
-| icon              | string  | **Optional** | Icon                                   | `default entity icon`       |
-| show        | boolean | **Optional** | Show icon  | `true`             |
-| use_state_color        | boolean | **Optional** | Use state color  | `true`             |
-| tap_action        | object  | **Optional** | [Action](#action-options) to take on tap                       | `action: more-info` |
+| Name            | Type    | Requirement  | Description                              | Default               |
+| --------------- | ------- | ------------ | ---------------------------------------- | --------------------- |
+| icon            | string  | **Optional** | Icon                                     | `default entity icon` |
+| show            | boolean | **Optional** | Show icon                                | `true`                |
+| use_state_color | boolean | **Optional** | Use state color                          | `true`                |
+| tap_action      | object  | **Optional** | [Action](#action-options) to take on tap | `action: more-info`   |
 
 ### Slider Options
 
-| Name              | Type    | Requirement  | Description                                 | Default             |
-| ----------------- | ------- | ------------ | ------------------------------------------- | ------------------- |
-| direction              | string  | **Optional** | Direction `left-right, top-bottom, bottom-top`                                   | `left-right`       |
-| background        | string | **Optional** | Background `solid, gradient, triangle, striped, custom`  | `gradient`             |
-| use_state_color        | boolean | **Optional** | Use state color  | `true`             |
-| use_percentage_bg_opacity        | boolean | **Optional** | Apply opacity to background based on percentage  | `true`             |
-| show_track        | boolean | **Optional** | Show track when state is on  | `false`             |
-| force_square        | boolean | **Optional** | Force the button as a square  | `false`             |
-| toggle_on_click        | boolean | **Optional** | Force the slider to act as a toggle, if `true` sliding is disabled  | `false`             |
-| attribute        | string | **Optional** | Control an [attribute](#attributes) for `light` or `cover` entities |              |
-| invert        | boolean | **Optional** | Invert calculation of state and percentage, useful for `cover` entities   | `false`<br />`true` for `cover`            |
+| Name                      | Type    | Requirement  | Description                                                             | Default                                                        |
+| ------------------------- | ------- | ------------ | ----------------------------------------------------------------------- | -------------------------------------------------------------- |
+| direction                 | string  | **Optional** | Direction `left-right, top-bottom, bottom-top`                          | `left-right`                                                   |
+| background                | string  | **Optional** | Background `solid, gradient, triangle, striped, custom`                 | `gradient`                                                     |
+| use_state_color           | boolean | **Optional** | Use state color                                                         | `true`                                                         |
+| use_percentage_bg_opacity | boolean | **Optional** | Apply opacity to background based on percentage                         | `true`                                                         |
+| show_track                | boolean | **Optional** | Show track when state is on                                             | `false`                                                        |
+| force_square              | boolean | **Optional** | Force the button as a square                                            | `false`                                                        |
+| disable_sliding           | boolean | **Optional** | Disable sliding, if `true` sliding is disabled                          | `false`                                                        |
+| attribute                 | string  | **Optional** | Control an [attribute](#attributes) for `light` or `cover` entities     |                                                                |
+| invert                    | boolean | **Optional** | Invert calculation of state and percentage, useful for `cover` entities | `false`<br />`true` for `cover`                                |
+| tap_action                | object  | **Optional** | [Action](#action-options) to take on tap                                | `action: more-info` or `action: toggle` depending on card type |
+
 
 ### Attributes
 Light:
@@ -135,13 +141,13 @@ Cover:
 - `tilt`
 ### Action button Options
 
-| Name              | Type    | Requirement  | Description                                 | Default             |
-| ----------------- | ------- | ------------ | ------------------------------------------- | ------------------- |
-| mode              | string  | **Optional** | Mode `toggle, custom`                                   | `toggle`       |
-| show        | boolean | **Optional** | Show the action button  | `true`             |
-| icon        | string | **Optional** | Icon when mode is `custom`  | `mdi:power`             |
-| show_spinner        | boolean | **Optional** | Show spinner when mode is `custom`  | `true`             |
-| tap_action        | object  | **Optional** | [Action](#action-options) to take on tap                       | `action: toggle` |
+| Name         | Type    | Requirement  | Description                              | Default          |
+| ------------ | ------- | ------------ | ---------------------------------------- | ---------------- |
+| mode         | string  | **Optional** | Mode `toggle, custom`                    | `toggle`         |
+| show         | boolean | **Optional** | Show the action button                   | `true`           |
+| icon         | string  | **Optional** | Icon when mode is `custom`               | `mdi:power`      |
+| show_spinner | boolean | **Optional** | Show spinner when mode is `custom`       | `true`           |
+| tap_action   | object  | **Optional** | [Action](#action-options) to take on tap | `action: toggle` |
 
 ### Action Options
 
@@ -163,16 +169,16 @@ Custom styles can be set by using [Card mod](https://github.com/thomasloven/love
       }
 ```
 
-| Variable                   | Description                                 | Default             |
-| -----------------------    | ------------------------------------------- | ------------------- |
-|  `--icon-color`  | Color of the icon when `icon.use_state_color === false`     | `var(--paper-item-icon-color)`       |
-|  `--label-color-on`  | Color of the label when state is on     | `var(--primary-text-color, white)`       |
-|  `--label-color-off`  | Color of the label when state is off    | `var(--primary-text-color, white)`       |
-|  `--state-color-on`  | Color of the state value when state is on    | `var(--label-badge-text-color, white)`       |
-|  `--state-color-off`  | Color of the state value when state is off    | `var(--disabled-text-color)`       |
-|  `--action-icon-color-on`  | Color of the action button icon when state is on     | `var(--paper-item-icon-color, black)`       |
-|  `--action-icon-color-off`  | Color of the action button icon when state is off     | `var(--paper-item-icon-color, black)`       |
-|  `--action-spinner-color`  | Color of the spinner action button     | `var(--label-badge-text-color, white)`       |
+| Variable                  | Description                                             | Default                                |
+| ------------------------- | ------------------------------------------------------- | -------------------------------------- |
+| `--icon-color`            | Color of the icon when `icon.use_state_color === false` | `var(--paper-item-icon-color)`         |
+| `--label-color-on`        | Color of the label when state is on                     | `var(--primary-text-color, white)`     |
+| `--label-color-off`       | Color of the label when state is off                    | `var(--primary-text-color, white)`     |
+| `--state-color-on`        | Color of the state value when state is on               | `var(--label-badge-text-color, white)` |
+| `--state-color-off`       | Color of the state value when state is off              | `var(--disabled-text-color)`           |
+| `--action-icon-color-on`  | Color of the action button icon when state is on        | `var(--paper-item-icon-color, black)`  |
+| `--action-icon-color-off` | Color of the action button icon when state is off       | `var(--paper-item-icon-color, black)`  |
+| `--action-spinner-color`  | Color of the spinner action button                      | `var(--label-badge-text-color, white)` |
 
 ## Examples
 
@@ -184,7 +190,7 @@ Custom styles can be set by using [Card mod](https://github.com/thomasloven/love
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/general-minimal.png">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/general-minimal.png">  
 </td>
 <td valign="top">
 
@@ -215,12 +221,32 @@ action_button:
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/general-compact.png">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/general-compact.png">  
 </td>
 <td valign="top">
 
 ```yaml
 compact: true
+```  
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td></td>
+<td>Attribute
+</td>
+</tr>
+<tr>
+<td><em><td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/general-attribute.png">  
+</em> 
+</td>
+<td valign="top">
+
+```yaml
+entity: climate.my_ecobee
+attribute: current_temperature
 ```  
 </td>
 </tr>
@@ -235,7 +261,7 @@ compact: true
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/icon-minimal.png">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/icon-minimal.png">  
 </td>
 <td valign="top">
 
@@ -255,7 +281,7 @@ icon:
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/icon-icon-override.png">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/icon-icon-override.png">  
 </td>
 <td valign="top">
 
@@ -279,7 +305,7 @@ icon:
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/action-minimal.png">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/action-minimal.png">  
 </td>
 <td valign="top">
 
@@ -299,7 +325,7 @@ action_button:
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/action-custom.png">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/action-custom.png">  
 </td>
 <td valign="top">
 
@@ -321,7 +347,7 @@ action_button:
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/action-custom-icon.png">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/action-custom-icon.png">  
 </td>
 <td valign="top">
 
@@ -349,7 +375,7 @@ action_button:
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/slider-minimal.png">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/slider-minimal.png">  
 </td>
 <td valign="top">
 
@@ -369,7 +395,7 @@ slider:
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/slider-state-color.png">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/slider-state-color.png">  
 </td>
 <td valign="top">
 
@@ -390,7 +416,7 @@ slider:
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/slider-show-track.png">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/slider-show-track.png">  
 </td>
 <td valign="top">
 
@@ -412,7 +438,7 @@ slider:
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/slider-force-square.png">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/slider-force-square.png">  
 </td>
 <td valign="top">
 
@@ -428,6 +454,30 @@ slider:
 </tr>
 </table>
 
+<table>
+<tr>
+<td></td>
+<td>Slider tap action with sliding enabled
+</td>
+</tr>
+<tr>
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/slider-tap-action.png">  
+
+</td>
+<td valign="top">
+
+```yaml
+slider:
+  direction: left-right
+  background: gradient
+  use_state_color: true
+  disable_sliding: false
+  tap_action:
+    action: toggle
+```  
+</td>
+</tr>
+</table>
 
 
 ### Full examples
@@ -440,7 +490,7 @@ For fan entities the icon auto rotates based on the speed of the fan.
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/fan.gif">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/fan.gif">  
 </td>
 <td valign="top">
 
@@ -465,7 +515,7 @@ name: Fan
 </table>
 
 #### Switch
- Use `slider.toggle_on_click: true` so the slider acts as a toggle (sliding is disabled).
+ Use `slider.disable_sliding: true` so the slider is disabled, and `slider.tap_action.action: toggle` to toggle on tap.
 <table>
 <tr>
 <td></td>
@@ -473,7 +523,7 @@ name: Fan
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/switch.gif">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/switch.gif">  
 </td>
 <td valign="top">
 
@@ -483,7 +533,9 @@ entity: switch.socket
 slider:
   direction: left-right
   background: custom
-  toggle_on_click: true
+  disable_sliding: true
+  tap_action:
+    action: toggle
 icon:
   use_state_color: true
   tap_action:
@@ -507,7 +559,7 @@ For most use cases: set `slider.direction: top-bottom` and `slider.background: s
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/cover.gif">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/cover.gif">  
 </td>
 <td valign="top">
 
@@ -534,7 +586,7 @@ name: Cover
 
 #### Media player
 Default behavior: slider is used for volume control, when there is an entity picture it will be used instead of the icon.
-In this example the action button is used to toggle play/pause.
+In this example the action button is used to toggle play/pause.  Tapping on the body of the card will bring up the entity detail.
 <table>
 <tr>
 <td></td>
@@ -542,7 +594,7 @@ In this example the action button is used to toggle play/pause.
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/media.gif">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/media.gif">  
 </td>
 <td valign="top">
 
@@ -553,6 +605,8 @@ slider:
   direction: left-right
   background: triangle
   show_track: true
+  tap_action:
+    action: more-info
 icon:
   tap_action:
     action: more-info
@@ -580,7 +634,7 @@ Default behavior: slider is used to set target temperature, it doesn't alter sta
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/climate.gif">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/climate.gif">  
 </td>
 <td valign="top">
 
@@ -591,6 +645,8 @@ slider:
   direction: left-right
   background: triangle
   show_track: true
+  tap_action:
+    action: more-info
 icon:
   tap_action:
     action: more-info
@@ -606,7 +662,7 @@ name: Airco
 </table>
 
 #### Lock
-Default behavior: `slider.toggle_on_click: true`
+Default behavior: `slider.disable_sliding: true` and `slider.tap_action.action: toggle`
 <table>
 <tr>
 <td></td>
@@ -614,7 +670,7 @@ Default behavior: `slider.toggle_on_click: true`
 </td>
 </tr>
 <tr>
-<td><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/examples/lock.gif">  
+<td><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/examples/lock.gif">  
 </td>
 <td valign="top">
 
@@ -624,7 +680,9 @@ entity: lock.virtual_lock
 slider:
   direction: left-right
   background: solid
-  toggle_on_click: true
+  disable_sliding: true
+  tap_action:
+    action: toggle
 icon:
   use_state_color: true
   tap_action:
@@ -646,7 +704,7 @@ name: Lock
 </td>
 </tr>
 <tr>
-<td valign="top"><img src="https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/preview.gif">  
+<td valign="top"><img src="https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/preview.gif">  
 </td>
 <td valign="top">
 
@@ -670,7 +728,9 @@ cards:
     slider:
       direction: left-right
       background: custom
-      toggle_on_click: true
+      disable_sliding: true
+      tap_action:
+        action: more-info
     icon:
       use_state_color: true
       tap_action:
@@ -724,7 +784,7 @@ Mixed `group` entities are not supported, if you want to control multiple
 - media players use [Media player group](https://www.home-assistant.io/integrations/media_player.group/)
 
 ## Known issues
-When you discover any bugs please open an [issue](https://github.com/mattieha/slider-button-card/issues).
+When you discover any bugs please open an [issue](https://github.com/lizsugar/slider-button-card/issues).
 
 ## Languages
 
@@ -745,17 +805,17 @@ This card supports translations. Please, help to add more translations and impro
 - Inspired by [Slider entity row](https://github.com/thomasloven/lovelace-slider-entity-row)
 
 ---
-[![beer](https://www.buymeacoffee.com/assets/img/custom_images/black_img.png)](https://www.buymeacoffee.com/mattijsha)
+[![beer](https://www.buymeacoffee.com/assets/img/custom_images/black_img.png)](https://www.buymeacoffee.com/mattijsha) (original author: mattieha)
 
 <!-- References -->
 [hacs]: https://hacs.xyz
-[add-translation]: https://github.com/mattieha/slider-button-card/blob/main/CONTRIBUTE.md#adding-a-new-translation
-[visual-editor]: https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/card-editor.png
-[preview]: https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/preview.gif
-[preview-2]: https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/preview-2.gif
-[grid]: https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/grid-not-square.png
-[full-width]: https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/grid-full-width.png
-[latest-release]: https://github.com/mattieha/slider-button-card/releases/latest
-[releases-shield]: https://img.shields.io/github/release/mattieha/slider-button-card.svg?style=for-the-badge
-[releases]: https://github.com/mattieha/slider-button-card/releases
-[icon-minimal]: https://raw.githubusercontent.com/mattieha/slider-button-card/main/assets/grid-full-width.png
+[add-translation]: https://github.com/lizsugar/slider-button-card/blob/main/CONTRIBUTE.md#adding-a-new-translation
+[visual-editor]: https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/card-editor.png
+[preview]: https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/preview.gif
+[preview-2]: https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/preview-2.gif
+[grid]: https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/grid-not-square.png
+[full-width]: https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/grid-full-width.png
+[latest-release]: https://github.com/lizsugar/slider-button-card/releases/latest
+[releases-shield]: https://img.shields.io/github/release/lizsugar/slider-button-card.svg?style=for-the-badge
+[releases]: https://github.com/lizsugar/slider-button-card/releases
+[icon-minimal]: https://raw.githubusercontent.com/lizsugar/slider-button-card/main/assets/grid-full-width.png

@@ -1,4 +1,4 @@
-# Slider button scard by [@mattieha](https://www.github.com/mattieha)
+# Slider button card by [@mattieha](https://www.github.com/mattieha)
 ## Forked and maintained by [@lizsugar](https://www.github.com/lizsugar)
 [![GitHub Release][releases-shield]][releases]
 [![hacs_badge](https://img.shields.io/badge/HACS-default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)

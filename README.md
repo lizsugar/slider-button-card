@@ -6,7 +6,7 @@
 A button card with integrated slider for `light, switch, fan, cover, input_boolean, media_player, climate, lock` entities.
 
 Additions on top of main card:
-- `Automation, binary_sensor, sensor, climate, input_number, script, scene` entities supported
+- `automation, binary_sensor, sensor, input_number, script, scene` entities supported
 - Slider moves based on relative position of mouse or finger, not absolute
 - Support for tap action on a card independent of slider enabled or disabled
 - Option to show entity attribute

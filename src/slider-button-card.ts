@@ -143,7 +143,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       <ha-card
         tabindex="0"
         .label=${`SliderButton: ${this.config.entity || 'No Entity Defined'}`}
-        class="${classMap({ 'square': this.config.slider?.force_square || false, 'hide-name': !this.config.show_name, 'hide-state': !this.config.show_state, 'hide-action': !this.config.action_button?.show , 'compact': this.config.compact === true })}"
+        class="${classMap({ 'square': this.config.slider?.force_square || false, 'hide-name': !this.config.show_name, 'hide-state': !this.config.show_state, 'hide-action': !this.config.action_button?.show , 'compact': this.config.compact === true, 'hide-icon': !this.config.icon?.show })}"
       >
         <div class="button ${classMap({ off: this.ctrl.isOff, unavailable: this.ctrl.isUnavailable })}"
              style=${styleMap({
@@ -586,8 +586,16 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       max-width: calc(100% - 4em);
     }
     .compact.hide-action .text {         
-      max-width: calc(100% - 2em);      
+      max-width: calc(100% - 2em);
     }    
+
+    .compact.hide-icon .text {         
+      max-width: calc(100% - 3em);
+    }    
+
+    .compact.hide-icon.hide-action .text {         
+      max-width: 100%;
+    }  
 
     /* --- LABEL --- */
     
@@ -606,10 +614,22 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     .unavailable .name {
       color: var(--disabled-text-color);
     }
-    .compact .name {
+   .compact .name {
       display: inline-block;   
       max-width: calc(100% - 3.5em);
+    }
+
+    .compact.hide-action .name {         
+      max-width: calc(100% - 2em);      
     }    
+
+    .compact.hide-icon .name {         
+      max-width: calc(100% - 1em);
+    }    
+
+    .compact.hide-icon.hide-action .name {         
+      max-width: calc(100% - .5em);
+    }  
     
     /* --- STATE --- */
     

@@ -7730,7 +7730,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         super.firstUpdated(_changedProperties);
     }
     render() {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f;
         this.ctrl.hass = this.hass;
         if (!this.ctrl.stateObj) {
             return this._showError(localize('common.show_error'));
@@ -7739,7 +7739,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
       <ha-card
         tabindex="0"
         .label=${`SliderButton: ${this.config.entity || 'No Entity Defined'}`}
-        class="${classMap({ 'square': ((_a = this.config.slider) === null || _a === void 0 ? void 0 : _a.force_square) || false, 'hide-name': !this.config.show_name, 'hide-state': !this.config.show_state, 'hide-action': !((_b = this.config.action_button) === null || _b === void 0 ? void 0 : _b.show), 'compact': this.config.compact === true })}"
+        class="${classMap({ 'square': ((_a = this.config.slider) === null || _a === void 0 ? void 0 : _a.force_square) || false, 'hide-name': !this.config.show_name, 'hide-state': !this.config.show_state, 'hide-action': !((_b = this.config.action_button) === null || _b === void 0 ? void 0 : _b.show), 'compact': this.config.compact === true, 'hide-icon': !((_c = this.config.icon) === null || _c === void 0 ? void 0 : _c.show) })}"
       >
         <div class="button ${classMap({ off: this.ctrl.isOff, unavailable: this.ctrl.isUnavailable })}"
              style=${styleMap({
@@ -7751,9 +7751,9 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         })}
              >
           <div class="slider"
-               data-show-track="${(_c = this.config.slider) === null || _c === void 0 ? void 0 : _c.show_track}"
-               data-mode="${(_d = this.config.slider) === null || _d === void 0 ? void 0 : _d.direction}"
-               data-background="${(_e = this.config.slider) === null || _e === void 0 ? void 0 : _e.background}"
+               data-show-track="${(_d = this.config.slider) === null || _d === void 0 ? void 0 : _d.show_track}"
+               data-mode="${(_e = this.config.slider) === null || _e === void 0 ? void 0 : _e.direction}"
+               data-background="${(_f = this.config.slider) === null || _f === void 0 ? void 0 : _f.background}"
                data-disable-sliding="${this.ctrl.disableSliding}"
                @pointerdown=${this.onPointerDown}
                @pointermove=${this.onPointerMove}
@@ -8157,8 +8157,16 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
       max-width: calc(100% - 4em);
     }
     .compact.hide-action .text {         
-      max-width: calc(100% - 2em);      
+      max-width: calc(100% - 2em);
     }    
+
+    .compact.hide-icon .text {         
+      max-width: calc(100% - 3em);
+    }    
+
+    .compact.hide-icon.hide-action .text {         
+      max-width: 100%;
+    }  
 
     /* --- LABEL --- */
     
@@ -8177,10 +8185,22 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
     .unavailable .name {
       color: var(--disabled-text-color);
     }
-    .compact .name {
+   .compact .name {
       display: inline-block;   
       max-width: calc(100% - 3.5em);
+    }
+
+    .compact.hide-action .name {         
+      max-width: calc(100% - 2em);      
     }    
+
+    .compact.hide-icon .name {         
+      max-width: calc(100% - 1em);
+    }    
+
+    .compact.hide-icon.hide-action .name {         
+      max-width: calc(100% - .5em);
+    }  
     
     /* --- STATE --- */
     

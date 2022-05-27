@@ -8049,7 +8049,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
       aspect-ratio: 1 / 1;
     }
     ha-card.compact {
-      min-height: 3rem !important;
+      min-height: 3.75rem !important;
     }    
     :host {
       --slider-bg-default-color: var(--primary-color, rgb(95, 124, 171));
@@ -8090,7 +8090,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
       touch-action: none;
     }
     ha-card.compact .button {
-      min-height: 3rem !important;
+      min-height: 3.75rem !important;
     }
     .button.off {
       background-color: var(--btn-bg-color-off);

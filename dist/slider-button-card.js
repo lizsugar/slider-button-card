@@ -8225,6 +8225,10 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
       max-width: calc(100% - 2.5em);
     }
 
+    .compact.hide-state.hide-action .name {
+      max-width: calc(100% - 1.5em);
+    }
+
     .compact.hide-icon.hide-action.hide-state .name {         
       max-width: calc(100% - .5em);
     }  

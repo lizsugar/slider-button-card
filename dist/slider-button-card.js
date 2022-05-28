@@ -8204,15 +8204,28 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
       max-width: calc(100% - 3em);
     }
 
+   .compact.hide-state .name {
+      display: inline-block;   
+      max-width: calc(100% - 1.5em);
+    }
+
     .compact.hide-action .name {         
       max-width: calc(100% - 2.5em);      
     }    
 
     .compact.hide-icon .name {         
-      max-width: calc(100% - .5em);
+      max-width: calc(100% - 1.5em);
     }    
 
+    .compact.hide-icon.hide-state .name {
+      max-width: calc(100% - .5em);
+    }
+
     .compact.hide-icon.hide-action .name {         
+      max-width: calc(100% - 2.5em);
+    }
+
+    .compact.hide-icon.hide-action.hide-state .name {         
       max-width: calc(100% - .5em);
     }  
     

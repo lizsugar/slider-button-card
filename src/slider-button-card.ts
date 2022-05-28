@@ -143,7 +143,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       <ha-card
         tabindex="0"
         .label=${`SliderButton: ${this.config.entity || 'No Entity Defined'}`}
-        class="${classMap({ 'square': this.config.slider?.force_square || false, 'hide-name': !this.config.show_name, 'hide-state': !this.config.show_state, 'hide-action': !this.config.action_button?.show , 'compact': this.config.compact === true })}"
+        class="${classMap({ 'square': this.config.slider?.force_square || false, 'hide-name': !this.config.show_name, 'hide-state': !this.config.show_state, 'hide-action': !this.config.action_button?.show , 'compact': this.config.compact === true, 'hide-icon': !this.config.icon?.show, 'hide-attribute': !this.config.show_attribute })}"
       >
         <div class="button ${classMap({ off: this.ctrl.isOff, unavailable: this.ctrl.isUnavailable })}"
              style=${styleMap({
@@ -478,7 +478,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       aspect-ratio: 1 / 1;
     }
     ha-card.compact {
-      min-height: 3rem !important;
+      min-height: 3.75rem !important;
     }    
     :host {
       --slider-bg-default-color: var(--primary-color, rgb(95, 124, 171));
@@ -519,7 +519,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       touch-action: none;
     }
     ha-card.compact .button {
-      min-height: 3rem !important;
+      min-height: 3.75rem !important;
     }
     .button.off {
       background-color: var(--btn-bg-color-off);
@@ -571,8 +571,22 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       user-select: none;
       font-size: 1.1rem;
       line-height: 1.3rem;
-      max-width: calc(100% - 2em);
+      max-width: calc(100% - 6em);
       /*text-shadow: rgb(255 255 255 / 10%) -1px -1px 1px, rgb(0 0 0 / 50%) 1px 1px 1px;*/
+    }
+    .hide-state.hide-attribute .text {
+      bottom: 1.6rem;
+    }
+
+    .hide-icon .text {
+      left: 10px;
+      max-width: calc(100% - 4.5em);
+    }
+    .hide-action .text {
+      max-width:  calc(100% - 4.5em);
+    }
+    .hide-icon.hide-action .text {
+      max-width:  calc(100% - 2.5em);
     }
     .compact .text {
       position: relative;
@@ -586,8 +600,16 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       max-width: calc(100% - 4em);
     }
     .compact.hide-action .text {         
-      max-width: calc(100% - 2em);      
+      max-width: calc(100% - 2em);
     }    
+
+    .compact.hide-icon .text {         
+      max-width: calc(100% - 3em);
+    }    
+
+    .compact.hide-icon.hide-action .text {         
+      max-width: 100%;
+    }  
 
     /* --- LABEL --- */
     
@@ -606,10 +628,39 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     .unavailable .name {
       color: var(--disabled-text-color);
     }
-    .compact .name {
+   .compact .name {
       display: inline-block;   
-      max-width: calc(100% - 3.5em);
+      max-width: calc(100% - 3em);
+    }
+
+   .compact.hide-state .name {
+      display: inline-block;   
+      max-width: calc(100% - 1.5em);
+    }
+
+    .compact.hide-action .name {         
+      max-width: calc(100% - 2.5em);      
     }    
+
+    .compact.hide-icon .name {         
+      max-width: calc(100% - 1.5em);
+    }    
+
+    .compact.hide-icon.hide-state .name {
+      max-width: calc(100% - .5em);
+    }
+
+    .compact.hide-icon.hide-action .name {         
+      max-width: calc(100% - 2.5em);
+    }
+
+    .compact.hide-state.hide-action .name {
+      max-width: calc(100% - 1.5em);
+    }
+
+    .compact.hide-icon.hide-action.hide-state .name {         
+      max-width: calc(100% - .5em);
+    }  
     
     /* --- STATE --- */
     
@@ -849,6 +900,13 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       float: right;
       bottom: 0px;
       right: 0px;
+    }
+    .compact .action ha-switch {
+      position:  relative;
+      float:  right;
+      bottom:  0px;
+      right:  0px;
+      top:  8px;
     }
     
 

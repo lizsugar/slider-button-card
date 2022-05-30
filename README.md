@@ -480,6 +480,230 @@ slider:
 
 
 ### Full examples
+#### Automation
+<table>
+<tr>
+<td></td>
+<td>Toggle automation
+</td>
+</tr>
+<tr>
+<td><em>image pending</em>
+</td>
+<td valign="top">
+
+```yaml
+type: custom:slider-button-card
+entity: automation.timed_lights
+slider:
+  show_track: false
+  disable_sliding: true
+  tap_action:
+    action: toggle
+icon:
+  tap_action:
+    action: more-info
+action_button:
+  show: false
+name: Timed Lights
+```  
+</td>
+</tr>
+</table>
+
+#### Binary Sensor
+<table>
+<tr>
+<td></td>
+<td>Show binary sensor state
+</td>
+</tr>
+<tr>
+<td><em>image pending</em>
+</td>
+<td valign="top">
+
+```yaml
+type: custom:slider-button-card
+entity: sensor.room_presence
+slider:
+  show_track: false
+  disable_sliding: true
+  tap_action:
+    action: more-info
+icon:
+  tap_action:
+    action: more-info
+action_button:
+  show: true
+  icon: mdi:chevron-right
+  show_spinner: false
+  tap_action:
+    action: more-info
+name: Room Presence
+```  
+</td>
+</tr>
+</table>
+
+#### Input Boolean
+<table>
+<tr>
+<td></td>
+<td>Toggle input boolean
+</td>
+</tr>
+<tr>
+<td><em>image pending</em>
+</td>
+<td valign="top">
+
+```yaml
+type: custom:slider-button-card
+entity: input_boolean.vacation_mode
+slider:
+  show_track: false
+  disable_sliding: true
+  tap_action:
+    action: toggle
+icon:
+  tap_action:
+    action: more-info
+action_button:
+  show: false
+name: Vacation Mode
+```  
+</td>
+</tr>
+</table>
+
+#### Input Number
+<table>
+<tr>
+<td></td>
+<td>Manage input_number entitites
+</td>
+</tr>
+<tr>
+<td><em>image pending</em>
+</td>
+<td valign="top">
+
+```yaml
+type: custom:slider-button-card
+entity: input_number.?????
+slider:
+  show_track: true
+  disable_sliding: false
+icon:
+  tap_action:
+    action: more-info
+action_button:
+  show: false
+name: ????
+```  
+</td>
+</tr>
+</table>
+
+#### Script
+<table>
+<tr>
+<td></td>
+<td>Manage input_number entitites
+</td>
+</tr>
+<tr>
+<td><em>image pending</em>
+</td>
+<td valign="top">
+
+```yaml
+type: custom:slider-button-card
+entity: script.start_dishwasher
+slider:
+  show_track: false
+  disable_sliding: true
+  tap_action:
+    action: call-service
+    service: script.start_dishwasher
+icon:
+  tap_action:
+    action: more-info
+action_button:
+  show: false
+name: Start Dishwasher
+```  
+</td>
+</tr>
+</table>
+
+#### Sensor
+<table>
+<tr>
+<td></td>
+<td>Show sensor state
+</td>
+</tr>
+<tr>
+<td><em>image pending</em>
+</td>
+<td valign="top">
+
+```yaml
+type: custom:slider-button-card
+entity: sensor.???
+slider:
+  show_track: false
+  disable_sliding: true
+  tap_action:
+    action: more-info
+icon:
+  tap_action:
+    action: more-info
+action_button:
+  show: false
+name: ???
+```  
+</td>
+</tr>
+</table>
+
+#### Scene
+<table>
+<tr>
+<td></td>
+<td>Show sensor state
+</td>
+</tr>
+<tr>
+<td><em>image pending</em>
+</td>
+<td valign="top">
+
+```yaml
+type: custom:slider-button-card
+entity: scene.living_room_evening
+slider:
+  show_track: false
+  disable_sliding: true
+  tap_action:
+    action: call-service
+    service: scene.turn_on
+    service_data: {}
+    target:
+      entity_id: scene.living_room_evening
+icon:
+  tap_action:
+    action: more-info
+action_button:
+  show: false
+name: Living Room Evening
+```  
+</td>
+</tr>
+</table>
+
 #### Fan
 For fan entities the icon auto rotates based on the speed of the fan. 
 <table>

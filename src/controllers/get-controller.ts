@@ -14,6 +14,7 @@ import { SwitchController } from './switch-controller';
 import { SensorController } from './sensor-controller';
 import { BinarySensorController } from './binary-sensor-controller';
 import { ScriptController } from './script-controller';
+import { SceneController } from './scene-controller';
 
 export class ControllerFactory {
   static getInstance(config: SliderButtonCardConfig): Controller {
@@ -32,6 +33,7 @@ export class ControllerFactory {
       [Domain.SENSOR]: SensorController,
       [Domain.BINARY_SENSOR]: BinarySensorController,
       [Domain.SCRIPT]: ScriptController,
+      [Domain.SCENE]: SceneController,
     };
     if (typeof mapping[domain] === 'undefined') {
       throw new Error(`Unsupported entity type: ${domain}`)

@@ -52,6 +52,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
   private _renderedConfig!: SliderButtonCardConfig;
   private static templateFields = [
     'name',
+    'attribute',
   ];
   protected evaluateJsTemplates(): void {
     if (!this._renderedConfig || !this.config || !this.ctrl.stateObj) {

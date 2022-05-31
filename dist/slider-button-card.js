@@ -8618,6 +8618,7 @@ let SliderButtonCard = SliderButtonCard_1 = class SliderButtonCard extends LitEl
 SliderButtonCard.templateRegex = new RegExp('\\[\\[\\[([^]*)\\]\\]\\]', 'gm');
 SliderButtonCard.templateFields = [
     'name',
+    'attribute',
 ];
 __decorate([
     property({ attribute: false })

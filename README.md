@@ -595,6 +595,8 @@ entity: input_number.?????
 slider:
   show_track: true
   disable_sliding: false
+  tap_action:
+    action: more-info
 icon:
   tap_action:
     action: more-info
@@ -683,7 +685,7 @@ name: ???
 
 ```yaml
 type: custom:slider-button-card
-entity: scene.living_room_evening
+entity: scene.evening
 slider:
   show_track: false
   disable_sliding: true
@@ -698,7 +700,7 @@ icon:
     action: more-info
 action_button:
   show: false
-name: Living Room Evening
+name: Evening
 ```  
 </td>
 </tr>

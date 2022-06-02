@@ -7701,6 +7701,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         super(...arguments);
         this.changing = false;
         this.changed = false;
+        this.hasSlid = false;
     }
     static async getConfigElement() {
         return document.createElement('slider-button-card-editor');
@@ -7789,6 +7790,11 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         })}
              >
           <div class="slider"
+               @action=${(e) => this._handleAction(e, this.config.slider)}
+                .actionHandler=${actionHandler({
+            hasHold: false,
+            hasDoubleClick: false,
+        })}
                data-show-track="${(_d = this.config.slider) === null || _d === void 0 ? void 0 : _d.show_track}"
                data-mode="${(_e = this.config.slider) === null || _e === void 0 ? void 0 : _e.direction}"
                data-background="${(_f = this.config.slider) === null || _f === void 0 ? void 0 : _f.background}"
@@ -7798,12 +7804,11 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
                @pointerup=${this.onPointerUp}
           >
 
-                <div class="toggle-overlay" @action=${(e) => this._handleAction(e, this.config.slider)}
-           .actionHandler=${actionHandler({
-            hasHold: false,
-            hasDoubleClick: false,
-        })}
-           ></div>
+            ${this.ctrl.disableSliding //keeping this for the CSS cursor change
+            ? html `
+                <div class="toggle-overlay"></div>
+                `
+            : ''}
 
             <div class="slider-bg"></div>
             <div class="slider-thumb"></div>           
@@ -7926,6 +7931,9 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
     }
     _handleAction(ev, config) {
         var _a;
+        if (this.hasSlid) {
+            return;
+        }
         if (this.hass && this.config && ev.detail.action) {
             if (((_a = config.tap_action) === null || _a === void 0 ? void 0 : _a.action) === 'toggle' && !this.ctrl.isUnavailable) {
                 this.animateActionStart();
@@ -7952,7 +7960,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         this.ctrl.log('setStateValue', value);
         this.updateValue(value, false);
         this.ctrl.value = value;
-        this.animateActionStart();
+        //this.animateActionStart();
     }
     animateActionStart() {
         this.animateActionEnd();
@@ -7971,7 +7979,6 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
     updateValue(value, changing = true) {
         this.changing = changing;
         this.changed = !changing;
-        this.ctrl.log('updateValue', value);
         this.ctrl.targetValue = value;
         if (!this.button) {
             return;
@@ -8018,6 +8025,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         return color;
     }
     onPointerDown(event) {
+        this.hasSlid = false;
         event.preventDefault();
         event.stopPropagation();
         if (this.ctrl.isSliderDisabled) {
@@ -8043,6 +8051,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         if (this.ctrl.isSliderDisabled) {
             return;
         }
+        this.hasSlid = true;
         if (!this.slider.hasPointerCapture(event.pointerId))
             return;
         const { left, top, width, height } = this.slider.getBoundingClientRect();

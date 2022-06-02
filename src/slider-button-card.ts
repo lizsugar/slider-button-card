@@ -92,7 +92,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       compact: false,
       // eslint-disable-next-line @typescript-eslint/camelcase
       action_button: copy(ActionButtonConfigDefault),
-      debug: false,
+      debug: true,
       ...config
     };
     this.ctrl = ControllerFactory.getInstance(this.config);
@@ -434,7 +434,6 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     if (this.ctrl.isSliderDisabled) {
       return;
     }
-    this.hasSlid = true;
     if (!this.slider.hasPointerCapture(event.pointerId)) return;
     const {left, top, width, height} = this.slider.getBoundingClientRect();
     this.ctrl.log('event', event);
@@ -458,6 +457,14 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     this.ctrl.log('onPointerMove', percentage);
     this.ctrl.log('delta', delta);
     this.ctrl.log('newPercentage', newPercentage)
+
+    // the value below is just kind of a "this feels right on multiple devices" value
+    if (Math.abs(delta) > 0.5) {
+      this.hasSlid = true;
+    }
+
+    //this.ctrl.log('hasSlid?', this.hasSlid);
+
 
     this.updateValue(newPercentage);
   }

@@ -3835,7 +3835,6 @@ class ActionHandler extends HTMLElement {
             }, this.holdTime);
         };
         const end = (ev) => {
-            //console.log("END START");
             // Prevent mouse event if touch event
             ev.preventDefault();
             if (['touchend', 'touchcancel'].includes(ev.type) && this.timer === undefined) {
@@ -3874,8 +3873,6 @@ class ActionHandler extends HTMLElement {
         element.addEventListener('touchend', end);
         element.addEventListener('touchcancel', end);
         element.addEventListener('mousedown', start, { passive: true });
-        // why does this one work at all times but click does not...?
-        //element.addEventListener('mouseout', end);
         element.addEventListener('click', end);
         element.addEventListener('keyup', handleEnter);
     }
@@ -7411,7 +7408,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
             // eslint-disable-next-line @typescript-eslint/camelcase
             show_state: true, compact: false, 
             // eslint-disable-next-line @typescript-eslint/camelcase
-            action_button: copy(ActionButtonConfigDefault), debug: true }, config);
+            action_button: copy(ActionButtonConfigDefault), debug: false }, config);
         this.ctrl = ControllerFactory.getInstance(this.config);
     }
     shouldUpdate(changedProps) {
@@ -7594,16 +7591,12 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         if (this.hasSlid) {
             return;
         }
-        this.ctrl.log('STARTING _handleAction', ev.detail.action);
         if (this.hass && this.config && ev.detail.action) {
             if (((_a = config.tap_action) === null || _a === void 0 ? void 0 : _a.action) === 'toggle' && !this.ctrl.isUnavailable) {
                 this.animateActionStart();
-                this.ctrl.log('handleAction! toggle??', ev.detail.action);
             }
             G(this, this.hass, Object.assign(Object.assign({}, config), { entity: this.config.entity }), ev.detail.action);
-            this.ctrl.log('handleAction! inside if', ev.detail.action);
         }
-        this.ctrl.log('handleAction! outside if', ev.detail.action);
     }
     async handleClick(ev) {
         //if (this.ctrl.hasToggle && !this.ctrl.isUnavailable) {
@@ -7643,7 +7636,6 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
     updateValue(value, changing = true) {
         this.changing = changing;
         this.changed = !changing;
-        //this.ctrl.log('updateValue', value);
         this.ctrl.targetValue = value;
         if (!this.button) {
             return;
@@ -7691,25 +7683,19 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
     }
     onPointerDown(event) {
         this.hasSlid = false;
-        //this.ctrl.log('onPointerDown - 1', event.type);
         event.preventDefault();
         event.stopPropagation();
         if (this.ctrl.isSliderDisabled) {
-            //this.ctrl.log('onPointerDown - breaking', event.type);
             return;
         }
-        //this.ctrl.log('onPointerDown - 2', event.type);
         this.slider.setPointerCapture(event.pointerId);
-        //this.ctrl.log('onPointerDown - 3', event.type);
     }
     onPointerUp(event) {
-        //this.ctrl.log('onPointerUP - A', event.type);
         if (this.ctrl.isSliderDisabled) {
             return;
         }
         this.setStateValue(this.ctrl.targetValue);
         this.slider.releasePointerCapture(event.pointerId);
-        //this.ctrl.log('onPointerUP - B', event.type);
     }
     onPointerMove(event) {
         if (this.ctrl.isSliderDisabled) {
@@ -7720,7 +7706,6 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
             return;
         const { left, top, width, height } = this.slider.getBoundingClientRect();
         const percentage = this.ctrl.moveSlider(event, { left, top, width, height });
-        this.ctrl.log('onPointerMove', event.type);
         this.updateValue(percentage);
     }
     connectedCallback() {

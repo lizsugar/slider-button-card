@@ -7375,6 +7375,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         super(...arguments);
         this.changing = false;
         this.changed = false;
+        this.hasSlid = false;
     }
     static async getConfigElement() {
         return document.createElement('slider-button-card-editor');
@@ -7463,6 +7464,11 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         })}
              >
           <div class="slider"
+               @action=${(e) => this._handleAction(e, this.config.slider)}
+                .actionHandler=${actionHandler({
+            hasHold: false,
+            hasDoubleClick: false,
+        })}
                data-show-track="${(_c = this.config.slider) === null || _c === void 0 ? void 0 : _c.show_track}"
                data-mode="${(_d = this.config.slider) === null || _d === void 0 ? void 0 : _d.direction}"
                data-background="${(_e = this.config.slider) === null || _e === void 0 ? void 0 : _e.background}"
@@ -7472,13 +7478,11 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
                @pointerup=${this.onPointerUp}
           >
 
-          <div class="toggle-overlay" 
-              @action=${(e) => this._handleAction(e, this.config.slider)}
-                .actionHandler=${actionHandler({
-            hasHold: false,
-            hasDoubleClick: false,
-        })}
-          ></div>
+            ${this.ctrl.disableSliding //keeping this for the CSS cursor change
+            ? html `
+                <div class="toggle-overlay"></div>
+                `
+            : ''}
 
             <div class="slider-bg"></div>
             <div class="slider-thumb"></div>           
@@ -7587,10 +7591,14 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
     }
     _handleAction(ev, config) {
         var _a;
+        if (this.hasSlid) {
+            return;
+        }
         this.ctrl.log('STARTING _handleAction', ev.detail.action);
         if (this.hass && this.config && ev.detail.action) {
             if (((_a = config.tap_action) === null || _a === void 0 ? void 0 : _a.action) === 'toggle' && !this.ctrl.isUnavailable) {
                 this.animateActionStart();
+                this.ctrl.log('handleAction! toggle??', ev.detail.action);
             }
             G(this, this.hass, Object.assign(Object.assign({}, config), { entity: this.config.entity }), ev.detail.action);
             this.ctrl.log('handleAction! inside if', ev.detail.action);
@@ -7616,7 +7624,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         this.ctrl.log('setStateValue', value);
         this.updateValue(value, false);
         this.ctrl.value = value;
-        this.animateActionStart();
+        //this.animateActionStart();
     }
     animateActionStart() {
         this.animateActionEnd();
@@ -7682,35 +7690,37 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         return color;
     }
     onPointerDown(event) {
-        this.ctrl.log('onPointerDown - 1', event.type);
+        this.hasSlid = false;
+        //this.ctrl.log('onPointerDown - 1', event.type);
         event.preventDefault();
         event.stopPropagation();
         if (this.ctrl.isSliderDisabled) {
-            this.ctrl.log('onPointerDown - breaking', event.type);
+            //this.ctrl.log('onPointerDown - breaking', event.type);
             return;
         }
-        this.ctrl.log('onPointerDown - 2', event.type);
+        //this.ctrl.log('onPointerDown - 2', event.type);
         this.slider.setPointerCapture(event.pointerId);
-        this.ctrl.log('onPointerDown - 3', event.type);
+        //this.ctrl.log('onPointerDown - 3', event.type);
     }
     onPointerUp(event) {
-        this.ctrl.log('onPointerUP - A', event.type);
+        //this.ctrl.log('onPointerUP - A', event.type);
         if (this.ctrl.isSliderDisabled) {
             return;
         }
         this.setStateValue(this.ctrl.targetValue);
         this.slider.releasePointerCapture(event.pointerId);
-        this.ctrl.log('onPointerUP - B', event.type);
+        //this.ctrl.log('onPointerUP - B', event.type);
     }
     onPointerMove(event) {
         if (this.ctrl.isSliderDisabled) {
             return;
         }
+        this.hasSlid = true;
         if (!this.slider.hasPointerCapture(event.pointerId))
             return;
         const { left, top, width, height } = this.slider.getBoundingClientRect();
         const percentage = this.ctrl.moveSlider(event, { left, top, width, height });
-        //this.ctrl.log('onPointerMove', percentage);
+        this.ctrl.log('onPointerMove', event.type);
         this.updateValue(percentage);
     }
     connectedCallback() {

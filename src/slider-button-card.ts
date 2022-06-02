@@ -46,6 +46,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
   private changed = false;
   private ctrl!: Controller;
   private actionTimeout;
+  private hasSlid = false;
 
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     return document.createElement('slider-button-card-editor');
@@ -155,6 +156,11 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
              })}
              >
           <div class="slider"
+               @action=${ (e): void => this._handleAction(e, this.config.slider)}
+                .actionHandler=${actionHandler({
+                  hasHold: false,
+                  hasDoubleClick: false,
+                })}
                data-show-track="${this.config.slider?.show_track}"
                data-mode="${this.config.slider?.direction}"
                data-background="${this.config.slider?.background}"
@@ -164,13 +170,11 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
                @pointerup=${this.onPointerUp}
           >
 
-          <div class="toggle-overlay" 
-              @action=${ (e): void => this._handleAction(e, this.config.slider)}
-                .actionHandler=${actionHandler({
-                  hasHold: false,
-                  hasDoubleClick: false,
-                })}
-          ></div>
+            ${this.ctrl.disableSliding //keeping this for the CSS cursor change
+              ? html`
+                <div class="toggle-overlay"></div>
+                `
+              : ''}
 
             <div class="slider-bg"></div>
             <div class="slider-thumb"></div>           
@@ -282,10 +286,15 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
   }
 
   private _handleAction(ev: ActionHandlerEvent, config): void {
+    if (this.hasSlid)
+    {
+      return;
+    }
       this.ctrl.log('STARTING _handleAction', ev.detail.action);
       if (this.hass && this.config && ev.detail.action) {
         if (config.tap_action?.action === 'toggle' && !this.ctrl.isUnavailable) {
           this.animateActionStart();
+          this.ctrl.log('handleAction! toggle??', ev.detail.action);
         }
         handleAction(this, this.hass, {...config, entity: this.config.entity}, ev.detail.action);
         this.ctrl.log('handleAction! inside if', ev.detail.action);
@@ -314,7 +323,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     this.ctrl.log('setStateValue', value);
     this.updateValue(value, false);
     this.ctrl.value = value;
-    this.animateActionStart();
+    //this.animateActionStart();
   }
 
   private animateActionStart(): void {
@@ -386,36 +395,38 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
   }
 
   private onPointerDown(event: PointerEvent): void {
-    this.ctrl.log('onPointerDown - 1', event.type);
+    this.hasSlid = false;
+    //this.ctrl.log('onPointerDown - 1', event.type);
     event.preventDefault();
     event.stopPropagation();
     if (this.ctrl.isSliderDisabled) {
-      this.ctrl.log('onPointerDown - breaking', event.type);
+      //this.ctrl.log('onPointerDown - breaking', event.type);
       return;
     }
-    this.ctrl.log('onPointerDown - 2', event.type);
+    //this.ctrl.log('onPointerDown - 2', event.type);
     this.slider.setPointerCapture(event.pointerId);
-    this.ctrl.log('onPointerDown - 3', event.type);
+    //this.ctrl.log('onPointerDown - 3', event.type);
   }
 
   private onPointerUp(event: PointerEvent): void {
-    this.ctrl.log('onPointerUP - A', event.type);
+    //this.ctrl.log('onPointerUP - A', event.type);
     if (this.ctrl.isSliderDisabled) {
       return;
     }
     this.setStateValue(this.ctrl.targetValue);
     this.slider.releasePointerCapture(event.pointerId);
-    this.ctrl.log('onPointerUP - B', event.type);
+    //this.ctrl.log('onPointerUP - B', event.type);
   }
 
   private onPointerMove(event: any): void {
     if (this.ctrl.isSliderDisabled) {
       return;
     }
+    this.hasSlid = true;
     if (!this.slider.hasPointerCapture(event.pointerId)) return;
     const {left, top, width, height} = this.slider.getBoundingClientRect();
     const percentage = this.ctrl.moveSlider(event, {left, top, width, height});
-    //this.ctrl.log('onPointerMove', percentage);
+    this.ctrl.log('onPointerMove', event.type);
     this.updateValue(percentage);
   }
 

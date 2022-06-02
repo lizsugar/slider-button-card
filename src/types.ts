@@ -47,7 +47,7 @@ export interface SliderConfig {
   use_percentage_bg_opacity?: boolean;
   use_state_color?: boolean;
   show_track?: boolean;
-  disable_sliding?: boolean
+  disable_sliding?: boolean;
   invert?: boolean;
   force_square: boolean;
   tap_action?: ActionConfig;

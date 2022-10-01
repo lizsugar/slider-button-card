@@ -70,7 +70,7 @@ export function applyStep(value: number, step: number): number {
 }
 
 export function stepToPrecision(step: number): number {
-	return Math.ceil(Math.log(step)) * -1;
+	return Math.ceil(Math.log10(step) * -1) ;
 }
 
 export const capitalizeFirst = (s): string => (s && s[0].toUpperCase() + s.slice(1)) || "";

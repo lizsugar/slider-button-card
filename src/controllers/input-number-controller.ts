@@ -39,8 +39,8 @@ export class InputNumberController extends Controller {
 
   get label(): string {
     return this.stateObj.attributes.unit_of_measurement ?
-		   `${this.targetValue.toFixed(stepToPrecision(this.step))} ${this.stateObj.attributes.unit_of_measurement}` : `
-	        ${this.targetValue.toFixed(stepToPrecision(this.step))}`;
+           `${this.targetValue.toFixed(stepToPrecision(this.step))} ${this.stateObj.attributes.unit_of_measurement}` : `
+           ${this.targetValue.toFixed(stepToPrecision(this.step))}`;
   }
 
 }

@@ -177,7 +177,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
               : ''}
 
             <div class="slider-bg"></div>
-            <div class="slider-thumb"></div>           
+            <div class="slider-thumb"></div>
           </div>
           ${this.renderText()}
           ${this.renderAction()}
@@ -254,7 +254,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
           data-domain=${computeStateDomain(this.ctrl.stateObj)}
           data-state=${ifDefined(
             this.ctrl.stateObj ? this.ctrl.state : undefined
-          )}          
+          )}
           .icon=${this.ctrl.icon}
         />
       </div>
@@ -282,13 +282,13 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
            .actionHandler=${actionHandler({
              hasHold: false,
              hasDoubleClick: false,
-           })}           
+           })}
            >
         <ha-icon
           tabindex="-1"
           .icon=${this.config.action_button?.icon || 'mdi:power'}
         ></ha-icon>
-        ${typeof this.config.action_button?.show_spinner === 'undefined' || this.config.action_button?.show_spinner 
+        ${typeof this.config.action_button?.show_spinner === 'undefined' || this.config.action_button?.show_spinner
           ? html`
             <svg class="circular-loader" viewBox="25 25 50 50">
               <circle class="loader-path" cx="50" cy="50" r="20"></circle>
@@ -493,7 +493,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       flex-direction: column;
       justify-content: space-between;
       touch-action: none;
-      overflow: hidden;      
+      overflow: hidden;
       --mdc-icon-size: 2.2em;
     }
     ha-card.square {
@@ -501,16 +501,16 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     }
     ha-card.compact {
       min-height: 3.75rem !important;
-    }    
+    }
     :host {
       --slider-bg-default-color: var(--primary-color, rgb(95, 124, 171));
       --slider-bg: var(--slider-color);
       --slider-bg-filter: brightness(100%);
       --slider-bg-direction: to right;
-      --slider-track-color: #2b374e; 
+      --slider-track-color: #2b374e;
       --slider-tracker-color: transparent;
       --slider-value: 0%;
-      --slider-transition-duration: 0.2s;      
+      --slider-transition-duration: 0.2s;
       /*--label-text-shadow: rgb(255 255 255 / 10%) -1px -1px 1px, rgb(0 0 0 / 50%) 1px 1px 1px;*/
       /*--label-color-on: var(--primary-text-color, white);*/
       /*--label-color-off: var(--primary-text-color, white);*/
@@ -523,11 +523,11 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       --btn-bg-color-off: rgba(43,55,78,1);
       --btn-bg-color-on: #20293c;
       /*--action-icon-color-on: var(--paper-item-icon-color, black);*/
-      /*--action-icon-color-off: var(--paper-item-icon-color, black);*/      
+      /*--action-icon-color-off: var(--paper-item-icon-color, black);*/
       /*--action-spinner-color: var(--label-badge-text-color, white);*/
     }
     /* --- BUTTON --- */
-    
+
     .button {
       position: relative;
       padding: 0.8rem;
@@ -536,7 +536,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       min-height: 6.25rem;
       width: 100%;
       display: block;
-      overflow: hidden;           
+      overflow: hidden;
       transition: all 0.2s ease-in-out;
       touch-action: none;
     }
@@ -546,9 +546,9 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     .button.off {
       background-color: var(--btn-bg-color-off);
     }
-    
+
     /* --- ICON --- */
-    
+
     .icon {
       position: absolute;
       cursor: pointer;
@@ -583,7 +583,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     }
 
     /* --- TEXT --- */
-    
+
     .text {
       position: absolute;
       bottom: 12px;
@@ -621,20 +621,20 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       overflow: hidden;
       max-width: calc(100% - 4em);
     }
-    .compact.hide-action .text {         
+    .compact.hide-action .text {
       max-width: calc(100% - 2em);
-    }    
+    }
 
-    .compact.hide-icon .text {         
+    .compact.hide-icon .text {
       max-width: calc(100% - 3em);
-    }    
+    }
 
-    .compact.hide-icon.hide-action .text {         
+    .compact.hide-icon.hide-action .text {
       max-width: 100%;
-    }  
+    }
 
     /* --- LABEL --- */
-    
+
     .name {
       color: var(--label-color-on, var(--primary-text-color, white));
       text-overflow: ellipsis;
@@ -651,28 +651,28 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       color: var(--disabled-text-color);
     }
    .compact .name {
-      display: inline-block;   
+      display: inline-block;
       max-width: calc(100% - 3em);
     }
 
    .compact.hide-state .name {
-      display: inline-block;   
+      display: inline-block;
       max-width: calc(100% - 1.5em);
     }
 
-    .compact.hide-action .name {         
-      max-width: calc(100% - 2.5em);      
-    }    
+    .compact.hide-action .name {
+      max-width: calc(100% - 2.5em);
+    }
 
-    .compact.hide-icon .name {         
+    .compact.hide-icon .name {
       max-width: calc(100% - 1.5em);
-    }    
+    }
 
     .compact.hide-icon.hide-state .name {
       max-width: calc(100% - .5em);
     }
 
-    .compact.hide-icon.hide-action .name {         
+    .compact.hide-icon.hide-action .name {
       max-width: calc(100% - 2.5em);
     }
 
@@ -680,13 +680,13 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       max-width: calc(100% - 1.5em);
     }
 
-    .compact.hide-icon.hide-action.hide-state .name {         
+    .compact.hide-icon.hide-action.hide-state .name {
       max-width: calc(100% - .5em);
-    }  
-    
+    }
+
     /* --- STATE --- */
-    
-    .state {      
+
+    .state {
       color: var(--state-color-on, var(--label-badge-text-color, white));
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -707,10 +707,10 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       max-width: calc(100% - 0em);
       overflow: hidden;
     }
-    
+
     /* --- ATTRIBUTE --- */
 
-    .attribute {      
+    .attribute {
       /*
       color: var(--state-color-on, var(--label-badge-text-color, white));
       text-overflow: ellipsis;
@@ -719,7 +719,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       text-shadow: var(--state-text-shadow);
       max-width: calc(50% -2em);
       transition: font-size 0.1s ease-in-out;
-      border: 1px solid red; 
+      border: 1px solid red;
       */
     }
 
@@ -729,7 +729,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       overflow: hidden;
     }
 
-    .oneliner {      
+    .oneliner {
       color: var(--state-color-on, var(--label-badge-text-color, white));
       text-overflow: ellipsis;
       overflow: hidden;
@@ -740,10 +740,10 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       transition: font-size 0.1s ease-in-out;
       /*border: 1px solid blue;*/
     }
-    /* --- SLIDER --- */    
-    
+    /* --- SLIDER --- */
+
     .slider {
-      position: absolute;      
+      position: absolute;
       top: 0px;
       left: 0px;
       height: 100%;
@@ -753,7 +753,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       z-index: 0;
     }
     .slider[data-mode="bottom-top"] {
-      cursor: ns-resize;     
+      cursor: ns-resize;
     }
     .slider[data-mode="top-bottom"] {
       cursor: ns-resize;
@@ -761,23 +761,23 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     .slider:active {
       cursor: grabbing;
     }
-    
-    /* --- SLIDER OVERLAY --- */      
-      
+
+    /* --- SLIDER OVERLAY --- */
+
     .slider .toggle-overlay {
-      position: absolute;      
+      position: absolute;
       top: 0px;
       left: 0px;
       height: 100%;
       width: 100%;
       cursor: pointer;
       opacity: 0;
-      z-index: 999;    
+      z-index: 999;
     }
-    
-    /* --- SLIDER BACKGROUND --- */   
-     
-    .slider-bg {       
+
+    /* --- SLIDER BACKGROUND --- */
+
+    .slider-bg {
       position: absolute;
       top: 0;
       left: 0px;
@@ -792,72 +792,72 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     .off .slider .slider-bg {
       background-color: var( --ha-card-background, var(--card-background-color, var(--btn-bg-color-off, black)) );
     }
-    .slider[data-background="solid"] .slider-bg {            
+    .slider[data-background="solid"] .slider-bg {
       --slider-bg-color: var(--slider-color);
     }
-    .slider[data-background="triangle"] .slider-bg {      
-      --slider-bg-direction: to bottom right;    
+    .slider[data-background="triangle"] .slider-bg {
+      --slider-bg-direction: to bottom right;
       --slider-bg: linear-gradient(var(--slider-bg-direction), transparent 0%, transparent 50%, var(--slider-color) 50%, var(--slider-color) 100%);
       border-right: 0px solid;
-    }    
-    .slider[data-background="triangle"][data-mode="bottom-top"] .slider-bg {
-      --slider-bg-direction: to top left;      
-    }    
-    .slider[data-background="triangle"][data-mode="top-bottom"] .slider-bg {
-      --slider-bg-direction: to bottom left;      
     }
-    .slider[data-background="custom"] .slider-bg {    
+    .slider[data-background="triangle"][data-mode="bottom-top"] .slider-bg {
+      --slider-bg-direction: to top left;
+    }
+    .slider[data-background="triangle"][data-mode="top-bottom"] .slider-bg {
+      --slider-bg-direction: to bottom left;
+    }
+    .slider[data-background="custom"] .slider-bg {
       --slider-bg: repeating-linear-gradient(-45deg, var(--slider-color) 0, var(--slider-color) 1px, var(--slider-color) 0, transparent 10%);
       --slider-bg-size: 30px 30px;
-    }    
+    }
     .slider[data-background="gradient"] .slider-bg {
       --slider-bg: linear-gradient(var(--slider-bg-direction), rgba(0, 0, 0, 0) -10%, var(--slider-color) 100%);
-    }    
+    }
     .slider[data-background="striped"] .slider-bg {
       --slider-bg: linear-gradient(var(--slider-bg-direction), var(--slider-color), var(--slider-color) 50%, transparent 50%, transparent);
       --slider-bg-size: 4px 100%;
     }
     .slider[data-background="striped"][data-mode="bottom-top"] .slider-bg,
-    .slider[data-background="striped"][data-mode="top-bottom"] .slider-bg {      
+    .slider[data-background="striped"][data-mode="top-bottom"] .slider-bg {
       --slider-bg-size: 100% 4px;
-    }    
-    .slider[data-mode="bottom-top"] .slider-bg {
-      --slider-bg-direction: to top;      
-    }    
-    .slider[data-mode="top-bottom"] .slider-bg {
-      --slider-bg-direction: to bottom;      
     }
-    
-    /* --- SLIDER THUMB --- */        
-    
+    .slider[data-mode="bottom-top"] .slider-bg {
+      --slider-bg-direction: to top;
+    }
+    .slider[data-mode="top-bottom"] .slider-bg {
+      --slider-bg-direction: to bottom;
+    }
+
+    /* --- SLIDER THUMB --- */
+
     .slider-thumb {
       position: relative;
       width: 100%;
-      height: 100%;      
+      height: 100%;
       transform: translateX(var(--slider-value));
       background: transparent;
       transition: transform var(--slider-transition-duration) ease-in;
     }
     .changing .slider .slider-thumb {
       transition: none;
-    }    
+    }
     .slider[data-mode="top-bottom"] .slider-thumb {
       transform: translateY(var(--slider-value)) !important;
     }
     .slider[data-mode="bottom-top"] .slider-thumb {
       transform: translateY(calc(var(--slider-value) * -1))  !important;
     }
-    
+
     .slider-thumb:before {
       content: '';
       position: absolute;
       top: 0;
       left: -2px;
       height: 100%;
-      width: 2px;          
+      width: 2px;
       background: var(--slider-color);
-      opacity: 0;       
-      transition: opacity 0.2s ease-in-out 0s;   
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out 0s;
       box-shadow: var(--slider-color) 0px 1px 5px 1px;
       z-index: 999;
     }
@@ -865,24 +865,24 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       top: -2px;
       left: 0px;
       height: 2px;
-      width: 100%;              
-    }    
+      width: 100%;
+    }
     .changing .slider-thumb:before {
-      opacity: 0.5;    
+      opacity: 0.5;
     }
     .off.changing .slider-thumb:before {
-      opacity: 0;    
+      opacity: 0;
     }
-    
+
     .slider-thumb:after {
       content: '';
       position: absolute;
       top: 0;
       left: 0px;
       height: 100%;
-      width: 100%;          
+      width: 100%;
       background: var( --ha-card-background, var(--card-background-color, var(--btn-bg-color-on, black)) );
-      opacity: 1;            
+      opacity: 1;
     }
     .slider[data-show-track="true"] .slider-thumb:after {
       opacity: 0.675;
@@ -890,9 +890,9 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
     .off .slider[data-show-track="true"] .slider-thumb:after {
       opacity: 1;
     }
-                  
-    /* --- ACTION BUTTON --- */      
-              
+
+    /* --- ACTION BUTTON --- */
+
     .action {
       position: absolute;
       right: 10px;
@@ -904,12 +904,12 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       cursor: pointer;
       outline: none;
       -webkit-tap-highlight-color: transparent;
-    }    
+    }
     .action ha-switch {
       position: absolute;
       right: 0;
       top: 5px;
-    }    
+    }
     .off .action {
       color: var(--action-icon-color-off, var(--paper-item-icon-color, black));
     }
@@ -930,7 +930,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       right:  0px;
       top:  8px;
     }
-    
+
 
     .circular-loader {
       position: absolute;
@@ -940,36 +940,36 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
       height: calc(var(--mdc-icon-size, 24px) + 16px);
       opacity: 0;
       transition: opacity 0.2s ease-in-out;
-      animation: rotate 2s linear infinite; 
-    }   
+      animation: rotate 2s linear infinite;
+    }
     .action.loading .circular-loader {
-      opacity: 1;      
-    }    
+      opacity: 1;
+    }
 
     .loader-path {
       fill: none;
       stroke-width: 2px;
       stroke: var(--action-spinner-color, var(--label-badge-text-color, white));
-      animation: animate-stroke 1.5s ease-in-out infinite both;        
+      animation: animate-stroke 1.5s ease-in-out infinite both;
       stroke-linecap: round;
     }
-    
-    /* --- MISC --- */    
-    
+
+    /* --- MISC --- */
+
     .unavailable .slider .toggle-overlay,
     .unavailable .action,
-    .unavailable .action ha-switch,    
+    .unavailable .action ha-switch,
     .unavailable .slider {
       cursor: not-allowed !important;
     }
-    
-    
+
+
     @keyframes rotate {
       100% {
         transform: rotate(360deg);
       }
     }
-    
+
     @keyframes animate-stroke {
       0% {
         stroke-dasharray: 1, 200;
@@ -983,7 +983,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
         stroke-dasharray: 89, 200;
         stroke-dashoffset: -124;
       }
-    }     
+    }
     `;
   }
 }

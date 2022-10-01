@@ -1,6 +1,8 @@
 import { Controller } from './controller';
 import { normalize, percentageToValue, toPercentage } from '../utils';
 import { SliderConfig } from '../types';
+import { round } from '../utils';
+import { stepToPrecision } from '../utils';
 
 export class InputNumberController extends Controller {
   _targetValue;
@@ -9,8 +11,6 @@ export class InputNumberController extends Controller {
   _clickPositionLock;
   _originalValue;
   _originalValueLock;
-  // _min;
-  // _max;
 
   get _value(): number {
     return this.stateObj.state;
@@ -41,7 +41,9 @@ export class InputNumberController extends Controller {
   }
 
   get label(): string {
-    return this.stateObj.attributes.unit_of_measurement ? `${this.targetValue} ${this.stateObj.attributes.unit_of_measurement}` : `${this.targetValue}`;
+    return this.stateObj.attributes.unit_of_measurement ?
+		   `${round(this.targetValue,stepToPrecision(this.step))} ${this.stateObj.attributes.unit_of_measurement}` : `
+	        ${round(this.targetValue,stepToPrecision(this.step))}`;
   }
 
 }

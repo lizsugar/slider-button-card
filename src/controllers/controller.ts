@@ -298,8 +298,8 @@ export abstract class Controller {
 
   moveSlider(event: any, {left, top, width, height}): number {
     let percentage = this.calcMovementPercentage(event, {left, top, width, height});
-    //percentage = this.applyStep(percentage);
-    //percentage = normalize(percentage, 0, 100);
+    percentage = this.applyStep(percentage);
+    percentage = normalize(percentage, 0, 100);
     if (!this.isValuePercentage) {
       percentage = percentageToValue(percentage, this.min, this.max);
     }
@@ -307,7 +307,9 @@ export abstract class Controller {
   }
 
   calcMovementPercentage(event: any, {left, top, width, height}): number {
-    let percentage;
+
+    let percentage = 0;
+
     switch(this._config.slider?.direction) {
       case SliderDirections.LEFT_RIGHT:
         percentage = toPercentage(

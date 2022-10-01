@@ -40,14 +40,18 @@ export function getLightColorBasedOnTemperature(current: number, min: number, ma
       .toRgbString();
   }
 }
- export function toPercentage(value: number, min: number, max: number): number {
-  return (((value - min) / max) * 100); //.toFixed(2);
+export function round(number: number, precision: number): number {
+  const factor = Math.pow(10, precision);
+  return Math.round(number * factor) / factor;
+}
+
+export function toPercentage(value: number, min: number, max: number): number {
+  return round((((value - min) / max) * 100), 1);
+  // return ((value - min) * 100) / (max - min);
 }
 
 export function percentageToValue(percent: number, min: number, max: number): number {
-  return Math.floor(
-    (percent * (max - min) / 100 + min)
-  )
+  return round(((percent * (max - min) / 100) + min), 1);
 }
 
 export const normalize = (value: number, min: number, max: number): number => {
@@ -59,5 +63,14 @@ export const normalize = (value: number, min: number, max: number): number => {
   if (value < min) return min;
   return value;
 };
+
+export function applyStep(value: number, step: number): number {
+    const rounded = Math.round(value / step) * step;
+    return rounded;
+}
+
+export function stepToPrecision(step: number): number {
+	return Math.ceil(Math.log(step)) * -1;
+}
 
 export const capitalizeFirst = (s): string => (s && s[0].toUpperCase() + s.slice(1)) || "";

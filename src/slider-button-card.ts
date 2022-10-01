@@ -433,13 +433,15 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
   }
 
   private onPointerMove(event: any): void {
-    if (this.ctrl.isSliderDisabled) {
+
+    if (this.ctrl.isSliderDisabled)
       return;
-    }
-    if (!this.slider.hasPointerCapture(event.pointerId)) return;
+
+    if (!this.slider.hasPointerCapture(event.pointerId))
+		return;
+
     const {left, top, width, height} = this.slider.getBoundingClientRect();
     this.ctrl.log('event', event);
-
     const percentage = this.ctrl.moveSlider(event, {left, top, width, height});
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

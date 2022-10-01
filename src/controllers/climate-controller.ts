@@ -1,6 +1,8 @@
 import { STATES_OFF } from 'custom-card-helpers';
 import { capitalizeFirst } from '../utils';
 import { Controller } from './controller';
+import { round } from '../utils';
+import { stepToPrecision } from '../utils';
 
 export class ClimateController extends Controller {
    _targetValue;
@@ -46,7 +48,7 @@ export class ClimateController extends Controller {
     const unit = this._hass.config.unit_system.temperature;
     const mode = capitalizeFirst(this.state);
     // const current = this.stateObj.attributes?.current_temperature ? ` | ${this.stateObj.attributes.current_temperature}${unit}` : '';
-    return `${this.targetValue}${unit} | ${mode}`;
+		return `${this.targetValue.toFixed(1)}${unit} | ${mode}`;
   }
 
 }

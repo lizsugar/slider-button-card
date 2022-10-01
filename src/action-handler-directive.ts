@@ -1,5 +1,4 @@
 import { directive, PropertyPart } from 'lit-html';
-
 import { ActionHandlerDetail, ActionHandlerOptions } from 'custom-card-helpers/dist/types';
 import { fireEvent } from 'custom-card-helpers';
 
@@ -24,11 +23,8 @@ class ActionHandler extends HTMLElement implements ActionHandler {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public ripple: any;
-
   protected timer?: number;
-
   protected held = false;
-
   private dblClickTimeout?: number;
 
   constructor() {
@@ -83,8 +79,8 @@ class ActionHandler extends HTMLElement implements ActionHandler {
 
     const start = (ev: Event): void => {
       this.held = false;
-      let x;
-      let y;
+      let x = 0;
+      let y = 0;
       if ((ev as TouchEvent).touches) {
         x = (ev as TouchEvent).touches[0].pageX;
         y = (ev as TouchEvent).touches[0].pageY;

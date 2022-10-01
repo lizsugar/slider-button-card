@@ -1,7 +1,4 @@
 import { Controller } from './controller';
-import { normalize, percentageToValue, toPercentage } from '../utils';
-import { SliderConfig } from '../types';
-import { round } from '../utils';
 import { stepToPrecision } from '../utils';
 
 export class InputNumberController extends Controller {

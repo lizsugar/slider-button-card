@@ -1,7 +1,12 @@
-# Slider button scard by [@mattieha](https://www.github.com/mattieha)
+# Slider button card by [@mattieha](https://www.github.com/mattieha)
 ## Forked and maintained by [@lizsugar](https://www.github.com/lizsugar)
 [![GitHub Release][releases-shield]][releases]
 [![hacs_badge](https://img.shields.io/badge/HACS-default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
+
+# Project Abandoned
+I've abandoned this project.  I've been using [Big Slider Card](https://github.com/nicufarmache/lovelace-big-slider-card) for my lights and the new default Tile card for everything else.  Anyone can pick this up if they want it :)
+
+# Original Readme
 
 A button card with integrated slider for `light, switch, fan, cover, input_boolean, media_player, climate, lock` entities.
 
